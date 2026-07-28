@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>estudio creativo — diseño de identidad</title>
+<meta name="description" content="estudio de diseño gráfico especializado en identidad de marca.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Grilla de debug de 12 columnas — Shift + G -->
+<div class="gridlayout-invisible">
+  <div class="gridlayout-column"></div><div class="gridlayout-column"></div>
+  <div class="gridlayout-column"></div><div class="gridlayout-column"></div>
+  <div class="gridlayout-column"></div><div class="gridlayout-column"></div>
+  <div class="gridlayout-column"></div><div class="gridlayout-column"></div>
+  <div class="gridlayout-column"></div><div class="gridlayout-column"></div>
+  <div class="gridlayout-column"></div><div class="gridlayout-column"></div>
+</div>
+
+<!-- Cortina de transición: 4 columnas negras -->
+<div class="page-transition">
+  <div class="transition-column-container">
+    <div class="transition-column"><div class="transition-column-background"></div></div>
+    <div class="transition-column"><div class="transition-column-background"></div></div>
+    <div class="transition-column"><div class="transition-column-background"></div></div>
+    <div class="transition-column"><div class="transition-column-background"></div></div>
+  </div>
+</div>
+
+<!-- TODO: confirmar el nombre del estudio / de la diseñadora -->
+<nav class="navbar">
+  <div class="header grid-12">
+    <a href="index.html" class="nav-button is-current">
+      <div class="button-square not-blinking"></div>
+      <div class="text-inverse name-long">estudio creativo</div>
+      <div class="text-inverse name-short">estudio</div>
+    </a>
+    <a href="photos.html" class="nav-button">
+      <div class="button-square blinking"></div>
+      <div class="text-inverse">proceso</div>
+    </a>
+    <a href="about.html" class="nav-button">
+      <div class="button-square blinking"></div>
+      <div class="text-inverse">sobre mí</div>
+    </a>
+  </div>
+</nav>
+
+<header class="hero">
+  <!-- TODO: texto provisorio -->
+  <h1 class="title-h1">diseñadora gráfica enfocada en identidad de marca. actualmente tomando nuevos proyectos.</h1>
+  <div class="scroll-down-tag">scroll down</div>
+</header>
+
+<main id="projects"></main>
+
+<!-- Las 5 líneas verticales de guía -->
+<div class="background-gridlines">
+  <div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div>
+  <div class="grid-line"></div><div class="grid-line"></div>
+</div>
+
+<!-- Papel milimetrado al 4% -->
+<div class="background-pixelgrid">
+  <div class="bg-flex-vertical"></div>
+  <div class="bg-flex-horizontal"></div>
+</div>
+
+<canvas id="ascii-canvas"></canvas>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="credits-container">diseño y desarrollo propio</div>
+    <div class="copyright-container">©2026</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.2.3/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="js/projects.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

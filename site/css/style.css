@@ -1,0 +1,637 @@
+/* ===========================================================================
+   RÉPLICA — maximiliankaspar.com
+   Estructura, grilla e interacciones reproducidas 1:1.
+   Tipografías libres equivalentes (las originales son licencia paga).
+   =========================================================================== */
+
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --grey: #808080;
+  --transparent: #ffffff00;
+
+  /* La grilla del original: 12 columnas, 10px de gap, 5px de margen */
+  --cols: 12;
+  --gap: 10px;
+  --edge: 5px;
+
+  /* Tipografías. Space Grotesk y Space Mono son una pareja diseñada
+     en conjunto, igual que Neue Montreal / Neue Montreal Mono. */
+  --font-display: 'Space Grotesk', Arial, sans-serif;
+  --font-body: 'Space Grotesk', Arial, sans-serif;
+  --font-mono: 'Space Mono', 'Courier New', monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background-color: var(--white);
+  color: var(--black);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.25;
+  text-transform: lowercase; /* el original va todo en minúscula, sin excepción */
+  overflow-x: hidden;
+}
+
+body.no-scroll-transition {
+  overflow: hidden;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-weight: 400;
+}
+
+/* ---------------------------------------------------------------------------
+   EL TRUCO CENTRAL DEL SITIO
+   Texto blanco + mix-blend-mode: difference. Sobre blanco se ve negro, sobre
+   negro se ve blanco. Nunca hay que programar el caso contrario.
+--------------------------------------------------------------------------- */
+.text-inverse {
+  color: var(--white);
+  mix-blend-mode: difference;
+}
+
+/* ---------------------------------------------------------------------------
+   GRILLA DE 12 COLUMNAS
+--------------------------------------------------------------------------- */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: var(--gap);
+  width: 100%;
+  padding: 0 var(--edge);
+}
+
+/* ---------------------------------------------------------------------------
+   FONDOS: tres capas de grilla superpuestas
+--------------------------------------------------------------------------- */
+
+/* 1. Las 5 líneas verticales grises que se ven siempre */
+.background-gridlines {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 120vh;
+  min-height: 120vh;
+  padding: 0 var(--edge);
+  pointer-events: none;
+}
+
+.grid-line {
+  width: 1px;
+  height: 100%;
+  background-color: var(--grey);
+  transform: scaleX(0.25);
+  transform-origin: 0;
+}
+
+/* 2. Papel milimetrado: hairlines cada 10px al 4% de opacidad.
+      Casi invisible; le da textura al blanco para que no sea un vacío muerto. */
+.background-pixelgrid {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+.bg-flex-vertical,
+.bg-flex-horizontal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bg-flex-vertical {
+  flex-direction: column;
+}
+
+.line-horizontal {
+  width: 0.1px;
+  height: 100%;
+  background-color: var(--grey);
+}
+
+.line-vertical {
+  width: 100%;
+  height: 1px;
+  background-color: var(--grey);
+}
+
+/* 3. Grilla de debug de 12 columnas — oculta, se muestra con Shift + G */
+.gridlayout-invisible {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: -5;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap);
+  width: 100vw;
+  height: 100vh;
+  padding: 0 var(--edge);
+  pointer-events: none;
+}
+
+.gridlayout-column {
+  flex: 1;
+  height: 100vh;
+  background-color: #00000008;
+}
+
+/* ---------------------------------------------------------------------------
+   TRANSICIÓN ENTRE PÁGINAS: 4 columnas negras que barren la pantalla
+--------------------------------------------------------------------------- */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  pointer-events: none;
+}
+
+.page-transition.is-visible {
+  display: block;
+}
+
+.transition-column-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.transition-column {
+  width: 25%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.transition-column-background {
+  width: 100%;
+  height: 100%;
+  background-color: var(--black);
+  transform: translateX(-100%);
+}
+
+/* ---------------------------------------------------------------------------
+   NAVEGACIÓN
+   mix-blend-mode: difference sobre toda la barra → se invierte con el fondo.
+--------------------------------------------------------------------------- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  width: 100vw;
+  padding: 0;
+  mix-blend-mode: difference;
+}
+
+.navbar .header {
+  padding-top: 10px;
+}
+
+.nav-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap);
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  cursor: pointer;
+  /* El cuadradito vive fuera del borde y queda recortado... */
+  overflow: clip;
+}
+
+/* ...hasta que pasás el cursor. Entonces se asoma. */
+.nav-button:hover,
+.nav-button.is-current {
+  overflow: visible;
+}
+
+.nav-button:nth-child(1) { grid-column: 1 / span 6; }
+.nav-button:nth-child(2) { grid-column: 7 / span 3; }
+.nav-button:nth-child(3) { grid-column: 10 / span 3; }
+
+/* El cuadrado de 10px que parpadea como el cursor de una terminal */
+.button-square {
+  position: absolute;
+  left: -20px;
+  width: 10px;
+  height: 10px;
+  background-color: var(--white);
+}
+
+/* El de la página activa es fijo, en línea, y no parpadea */
+.button-square.not-blinking {
+  position: static;
+  margin-right: 0;
+}
+
+.button-square.blinking {
+  animation: blink 400ms steps(1, end) infinite;
+}
+
+/* Al pasar el cursor por el ítem activo, su cuadrado sí empieza a parpadear */
+.nav-button.is-current:hover .button-square.not-blinking {
+  animation: blink 400ms steps(1, end) infinite;
+}
+
+@keyframes blink {
+  0%,
+  50% { opacity: 1; }
+  51%,
+  100% { opacity: 0; }
+}
+
+.name-short { display: none; }
+
+/* ---------------------------------------------------------------------------
+   HERO
+--------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100vh;
+  padding: 0 var(--edge) var(--edge);
+}
+
+/* El tamaño se calcula por JS hasta llenar el ancho y el 40% del alto */
+.title-h1 {
+  font-family: var(--font-display);
+  font-size: 45px;
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+/* El textito que persigue al cursor */
+.scroll-down-tag {
+  position: fixed;
+  z-index: 9999;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+   PROYECTOS — encabezado / acordeón
+--------------------------------------------------------------------------- */
+.project-wrapper {
+  width: 100%;
+}
+
+.project-tag-wrapper {
+  padding: 0 var(--edge);
+}
+
+.project-tag {
+  padding-left: 10px;
+  color: var(--black);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.project-header-container {
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.project-header {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: var(--gap);
+  place-items: stretch start;
+  width: 100%;
+  max-width: 100vw;
+  font-family: var(--font-mono);
+  background-color: var(--transparent);
+  /* Entra en golpe seco (0ms). Sale con 200ms de demora.
+     Esa asimetría evita el parpadeo al cruzar varias filas seguidas. */
+  transition: background-color 0s linear 200ms;
+}
+
+.project-header-container:hover .project-header {
+  background-color: var(--black);
+  transition-delay: 0s;
+}
+
+.project-info-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* El grid padre usa justify-items:start, que encoge cada celda al ancho de
+     su contenido. Sin esto la × queda pegada al año en vez de irse al borde. */
+  justify-self: stretch;
+}
+
+.project-info-container:nth-child(1) { grid-column: 1 / span 6; }
+.project-info-container:nth-child(2) { grid-column: 7 / span 3; }
+.project-info-container:nth-child(3) { grid-column: 10 / span 3; }
+
+.project-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 125%;
+  cursor: pointer;
+}
+
+/* El + que rota 45° hasta volverse × */
+.plus-icon {
+  width: 12px;
+  height: 12px;
+  transition: transform 250ms ease;
+}
+
+.project-wrapper.is-open .plus-icon {
+  transform: rotate(45deg);
+}
+
+/* Cuerpo del acordeón */
+.project-content-wrapper {
+  height: 0;
+  overflow: hidden;
+}
+
+.acc-content-inner {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: var(--gap);
+  padding: 10px 15px 30px;
+}
+
+.acc-content-col {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.acc-content-col:nth-child(1) { grid-column: 1 / span 6; }
+.acc-content-col:nth-child(2) { grid-column: 7 / span 3; }
+.acc-content-col:nth-child(3) { grid-column: 10 / span 3; }
+
+.project-description {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.meta-row {
+  display: flex;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+/* ---------------------------------------------------------------------------
+   GRILLA DE IMÁGENES
+--------------------------------------------------------------------------- */
+.project-image-wrapper {
+  padding: 0 var(--edge);
+}
+
+.project-image-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+  align-items: start;
+  padding: 0 var(--edge);
+}
+
+.layout-grid-item {
+  grid-column: span 1;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Las que arrancan ocupando 2 columnas: dan ritmo a la grilla
+   sin recortar ninguna imagen. */
+.layout-grid-item.is-wide {
+  grid-column: span 2;
+}
+
+/* Al hacer clic, cambia de ancho y GSAP Flip anima el reacomodo de todas */
+.layout-grid-item.is--active {
+  grid-column: span 2;
+}
+
+.layout-grid-item.is-wide.is--active {
+  grid-column: span 4;
+}
+
+.thumbnail {
+  width: 100%;
+  display: block;
+}
+
+/* Las imágenes de este portfolio son todas 4:5. No se recorta ninguna. */
+.thumbnail.portrait {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.filename {
+  padding-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+/* ---------------------------------------------------------------------------
+   PÁGINAS INTERIORES (about / photos)
+--------------------------------------------------------------------------- */
+.statement-section {
+  display: flex;
+  align-items: center;
+  min-height: 60vh;
+  padding: 0 var(--edge);
+}
+
+.statement {
+  font-family: var(--font-display);
+  font-size: 45px;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.text-block-section {
+  padding: 60px var(--edge) 0;
+}
+
+.text-row {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: var(--gap);
+  padding: 10px;
+}
+
+.text-row-label {
+  grid-column: 1 / span 6;
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.text-row-body {
+  grid-column: 7 / span 5;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.text-row-body p {
+  margin: 0 0 12px;
+}
+
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--gap);
+  align-items: start;
+  padding: 40px var(--edge) 0;
+}
+
+/* ---------------------------------------------------------------------------
+   FOOTER
+--------------------------------------------------------------------------- */
+.footer {
+  margin-top: 80px;
+  padding: 0 var(--edge) 10px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: var(--gap);
+  padding: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.credits-container { grid-column: 1 / span 6; }
+.copyright-container { grid-column: 10 / span 3; }
+
+/* ---------------------------------------------------------------------------
+   FONDO ASCII
+--------------------------------------------------------------------------- */
+#ascii-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 800ms ease;
+}
+
+#ascii-canvas.is-ready {
+  opacity: 1;
+}
+
+/* ---------------------------------------------------------------------------
+   RESPONSIVE
+--------------------------------------------------------------------------- */
+@media screen and (min-width: 1920px) {
+  .button-square {
+    width: 12px;
+    height: 12px;
+  }
+  .project-info { font-size: 16px; }
+  .project-tag { font-size: 14px; }
+}
+
+@media screen and (max-width: 991px) {
+  .project-image-grid { grid-template-columns: repeat(3, 1fr); }
+  .photos-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media screen and (max-width: 767px) {
+  .name-long { display: none; }
+  .name-short { display: block; }
+
+  .nav-button:nth-child(1) { grid-column: 1 / span 4; }
+  .nav-button:nth-child(2) { grid-column: 6 / span 3; }
+  .nav-button:nth-child(3) { grid-column: 10 / span 3; }
+
+  .project-info-container:nth-child(1) { grid-column: 1 / span 6; }
+  .project-info-container:nth-child(2) { display: none; }
+  .project-info-container:nth-child(3) { grid-column: 8 / span 5; }
+
+  .acc-content-col:nth-child(1) { grid-column: 1 / span 12; }
+  .acc-content-col:nth-child(2) { grid-column: 1 / span 5; }
+  .acc-content-col:nth-child(3) { grid-column: 6 / span 7; }
+
+  .text-row-label { grid-column: 1 / span 12; }
+  .text-row-body { grid-column: 1 / span 12; }
+
+  .project-image-grid { grid-template-columns: repeat(2, 1fr); }
+  .photos-grid { grid-template-columns: repeat(3, 1fr); }
+
+  .layout-grid-item.is-wide { grid-column: span 2; }
+  .layout-grid-item.is--active,
+  .layout-grid-item.is-wide.is--active { grid-column: span 2; }
+
+  .credits-container { grid-column: 1 / span 6; }
+  .copyright-container { grid-column: 8 / span 5; }
+
+  /* En touch no hay hover: se desactiva la barra negra */
+  .project-header-container:hover .project-header {
+    background-color: var(--transparent);
+  }
+}
+
+/* Respeta la preferencia del sistema de reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

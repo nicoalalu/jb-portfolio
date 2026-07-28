@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+._*
+
+# Carpetas de originales full-size (~186 MB).
+# site/img/ tiene las copias optimizadas, que sí se versionan.
+/alba/
+/lepla/
+/rose/
+/rue-daisy/
+
+# Editores
+.vscode/
+.idea/
+*.swp
+
+# Claude Code — estado local de sesión
+.claude/settings.local.json
+.claude/data-enablement/
