@@ -31,7 +31,7 @@ site/
   css/style.css   732 líneas, todo el diseño
   js/projects.js  los datos de los 4 proyectos
   js/main.js      920 líneas, los 13 efectos
-  img/<slug>/     imágenes optimizadas, 1600×2000, ~350 kB c/u
+  img/<slug>/     imágenes optimizadas, 1080×1350, ~150 kB c/u
 
 alba/ lepla/ rose/ rue-daisy/   originales full-size, 186 MB — NO están en git
 ```
@@ -72,7 +72,7 @@ función `initAlgo()` con su comentario numerado, y la llamada al arranque.
   CDN de jsDelivr con versión pineada. Si agregás una lib, pineá la versión igual.
 - Las imágenes nuevas se optimizan con `sips`:
   ```bash
-  sips -s format jpeg -s formatOptions 72 -Z 2000 original.jpg --out site/img/carpeta/xx_001.jpg
+  sips -s format jpeg -s formatOptions 72 -Z 1350 original.jpg --out site/img/carpeta/xx_001.jpg
   ```
 
 ## Trampas conocidas
