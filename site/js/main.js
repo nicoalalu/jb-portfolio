@@ -217,7 +217,7 @@ function renderProjects() {
       .join('');
 
     return `
-      <section class="project-wrapper" data-layout-group>
+      <section class="project-wrapper" id="${p.slug}" data-layout-group>
         <div class="project-text-wrapper">
           <div class="project-text-header">
             ${pi === 0 ? '<div class="project-tag-wrapper"><div class="project-tag">proyectos</div></div>' : ''}
@@ -255,6 +255,15 @@ function renderProjects() {
         </div>
       </section>`;
   }).join('');
+}
+
+/* El acordeón se arma recién en el DOMContentLoaded, así que cuando se llega
+   desde el índice de proyectos (index.html#slug) el ancla todavía no existe:
+   hay que ir a buscarla a mano una vez renderizado. */
+function scrollToHash() {
+  const target = location.hash && document.querySelector(location.hash);
+  if (!target) return;
+  requestAnimationFrame(() => lenis.scrollTo(target, { immediate: true }));
 }
 
 /* ---------------------------------------------------------------------------
@@ -827,6 +836,66 @@ function initAscii() {
 }
 
 /* ---------------------------------------------------------------------------
+   13. LA PORTADA PASA LAS PIEZAS MIENTRAS EL CURSOR ESTÁ ENCIMA
+   Cada tarjeta del índice muestra una sola foto. Al entrar el cursor
+   empieza a rotar por el resto de las piezas del proyecto: es la forma
+   de mostrar todo el sistema sin llenar la grilla de miniaturas.
+   Los cuadros extra recién se descargan en el primer hover — hasta
+   entonces la página pesa cuatro imágenes, no treinta y una.
+--------------------------------------------------------------------------- */
+function initWorkHover() {
+  const INTERVALO = 500; // ms por pieza: se lee, pero no se hace lento
+
+  document.querySelectorAll('.work-card[data-frames]').forEach((card) => {
+    let srcs;
+    try {
+      srcs = JSON.parse(card.dataset.frames);
+    } catch (e) {
+      return;
+    }
+    if (!srcs || srcs.length < 2 || reduceMotion) return;
+
+    const thumb = card.querySelector('.work-thumb');
+    const veil = card.querySelector('.work-veil');
+    let frames = null;
+    let actual = 0;
+    let timer = null;
+
+    // Los <img> de las piezas restantes se crean una sola vez, al primer hover
+    function montar() {
+      if (frames) return;
+      frames = [card.querySelector('.work-frame')];
+      for (let i = 1; i < srcs.length; i++) {
+        const img = document.createElement('img');
+        img.className = 'work-frame';
+        img.src = srcs[i];
+        img.alt = '';
+        thumb.insertBefore(img, veil);
+        frames.push(img);
+      }
+    }
+
+    function mostrar(i) {
+      frames[actual].classList.remove('is-on');
+      actual = i;
+      frames[actual].classList.add('is-on');
+    }
+
+    card.addEventListener('mouseenter', () => {
+      montar();
+      clearInterval(timer);
+      timer = setInterval(() => mostrar((actual + 1) % frames.length), INTERVALO);
+    });
+
+    card.addEventListener('mouseleave', () => {
+      clearInterval(timer);
+      timer = null;
+      if (frames) mostrar(0); // vuelve siempre a la portada
+    });
+  });
+}
+
+/* ---------------------------------------------------------------------------
    ARRANQUE
 --------------------------------------------------------------------------- */
 document.addEventListener('DOMContentLoaded', () => {
@@ -834,6 +903,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', buildPixelGrid);
 
   renderProjects();
+  scrollToHash();
 
   fitHeadline('.title-h1');
   fitHeadline('.statement', 0.3, 0.3);
@@ -846,4 +916,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initGridToggle();
   initScanMode();
   initAscii();
+  initWorkHover();
 });

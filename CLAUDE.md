@@ -3,9 +3,11 @@
 Sitio de portfolio para un estudio de diseño gráfico. HTML/CSS/JS a mano, sin
 build step, sin framework, sin `package.json`. Todo lo que se sirve vive en `site/`.
 
-Es una **réplica de maximiliankaspar.com**: la estructura, la grilla y los 14
-efectos están reproducidos 1:1 a partir de la referencia. Tenelo presente antes
-de sugerir publicarlo con dominio propio o hacer el repo público.
+Es una **réplica de maximiliankaspar.com**: la estructura, la grilla y los
+efectos están reproducidos 1:1 a partir de la referencia. La página de
+proyectos (`photos.html`) es la excepción: su grilla de portadas está calcada
+de **ten10design.co/work**. Tenelo presente antes de sugerir publicarlo con
+dominio propio o hacer el repo público.
 
 ## Cómo correrlo
 
@@ -25,10 +27,10 @@ mirar la página y revisar la consola del browser.
 site/
   index.html      home: hero + los 4 proyectos en acordeón
   about.html      "sobre mí" — no carga projects.js
-  photos.html     "proceso" — grilla densa; el shuffle está INLINE en el HTML
-  css/style.css   637 líneas, todo el diseño
+  photos.html     "proyectos" — índice: 1 portada por proyecto; el render está INLINE
+  css/style.css   732 líneas, todo el diseño
   js/projects.js  los datos de los 4 proyectos
-  js/main.js      849 líneas, los 14 efectos
+  js/main.js      920 líneas, los 13 efectos
   img/<slug>/     imágenes optimizadas, 1600×2000, ~350 kB c/u
 
 alba/ lepla/ rose/ rue-daisy/   originales full-size, 186 MB — NO están en git
@@ -55,7 +57,7 @@ sin agregar el archivo, la imagen sale rota (no hay validación).
 `--edge: 5px`) y tipografías. El archivo está dividido en secciones con
 comentarios `/* === TÍTULO === */` — respetá esa organización al agregar reglas.
 
-**Efectos → `site/js/main.js`.** Numerados del 1 al 12 con comentarios de
+**Efectos → `site/js/main.js`.** Numerados del 1 al 13 con comentarios de
 bloque que explican qué hace cada uno y por qué. Todo se dispara desde el
 `DOMContentLoaded` del final. Si agregás un efecto, seguí el patrón:
 función `initAlgo()` con su comentario numerado, y la llamada al arranque.
@@ -75,10 +77,16 @@ función `initAlgo()` con su comentario numerado, y la llamada al arranque.
 
 ## Trampas conocidas
 
-- **`photos.html` tiene un `<script>` inline** (líneas 85-109) que arma la
-  grilla mezclada. No está en `main.js`. Si cambiás la estructura del markup
-  de las imágenes en `renderProjects()`, hay que replicarlo ahí a mano — están
-  duplicados.
+- **`photos.html` tiene un `<script>` inline** (a partir de la línea 85) que
+  arma el índice de proyectos: una portada por proyecto y el resto de las
+  piezas serializadas en `data-frames`. No está en `main.js`, pero el efecto
+  que las va pasando en hover (`initWorkHover()`, nº 13) sí — si tocás uno,
+  mirá el otro.
+- **El archivo se sigue llamando `photos.html`** aunque la página se llame
+  "proyectos". Renombrarlo implica tocar los tres `<nav>`.
+- **Las portadas se recortan a 1.727:1** (`.work-thumb`). Es el único lugar
+  del sitio donde una imagen se recorta: las piezas son 4:5 y de la portada
+  se ve una franja horizontal del centro.
 - **`about.html` no carga `projects.js`.** `renderProjects()` chequea
   `typeof PROJECTS === 'undefined'` y sale; no lo rompas.
 - **El truco central del diseño es `mix-blend-mode: difference`** en la nav:

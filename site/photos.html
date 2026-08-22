@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>proceso — estudio creativo</title>
+<title>proyectos — estudio creativo</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,7 +39,7 @@
     </a>
     <a href="photos.html" class="nav-button is-current">
       <div class="button-square not-blinking"></div>
-      <div class="text-inverse">proceso</div>
+      <div class="text-inverse">proyectos</div>
     </a>
     <a href="about.html" class="nav-button">
       <div class="button-square blinking"></div>
@@ -48,14 +48,14 @@
   </div>
 </nav>
 
-<!-- TODO: texto provisorio. En el original esta página es fotografía personal;
-     acá la usé como archivo de proceso, reutilizando las piezas existentes. -->
+<!-- TODO: texto provisorio. Esta página es el índice de proyectos:
+     una portada por proyecto, en el orden de PROJECTS. -->
 <section class="statement-section">
-  <div class="statement">un archivo suelto de piezas, pruebas y detalles. sin orden ni relación entre ellas, más allá de haber pasado por la misma mesa.</div>
+  <div class="statement">cuatro identidades, cada una con su propia lógica. pasá el cursor por encima para recorrer las piezas de adentro.</div>
 </section>
 
-<section class="project-image-wrapper" data-layout-group>
-  <div class="photos-grid" data-layout-grid data-gsap="stagger-container" id="photos-grid"></div>
+<section class="work-section">
+  <div class="work-grid" data-gsap="stagger-container" id="work-grid"></div>
 </section>
 
 <div class="background-gridlines">
@@ -83,28 +83,30 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 <script src="js/projects.js"></script>
 <script>
-// Mezcla todas las piezas de todos los proyectos en una sola grilla densa
+// Índice de proyectos: una sola portada por proyecto, en el orden de PROJECTS.
+// El resto de las piezas viajan en data-frames y las consume initWorkHover()
+// en main.js, que las va pasando mientras el cursor está encima.
 (function () {
-  const all = [];
-  PROJECTS.forEach((p) => {
-    for (let i = 1; i <= p.count; i++) {
-      const file = `${p.prefix}_${String(i).padStart(3, '0')}.jpg`;
-      all.push({ src: `img/${p.slug}/${file}`, file });
-    }
-  });
-  for (let i = all.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [all[i], all[j]] = [all[j], all[i]];
-  }
-  document.getElementById('photos-grid').innerHTML = all
-    .map(
-      (im) => `
-      <div class="layout-grid-item" data-layout-grid-item>
-        <img class="thumbnail portrait" src="${im.src}" alt="" loading="lazy">
-        <div class="filename">${im.file}</div>
-      </div>`
-    )
-    .join('');
+  const grid = document.getElementById('work-grid');
+  if (!grid || typeof PROJECTS === 'undefined') return;
+
+  grid.innerHTML = PROJECTS.map((p) => {
+    const frames = Array.from(
+      { length: p.count },
+      (_, i) => `img/${p.slug}/${p.prefix}_${String(i + 1).padStart(3, '0')}.jpg`
+    );
+    return `
+      <a class="layout-grid-item work-card" href="index.html#${p.slug}" data-frames='${JSON.stringify(frames)}'>
+        <div class="work-thumb">
+          <img class="work-frame is-on" src="${frames[0]}" alt="${p.name}" loading="lazy">
+          <div class="work-veil"></div>
+        </div>
+        <div class="work-meta">
+          <div class="work-name">${p.name}</div>
+          <div class="work-tags">${p.tags}</div>
+        </div>
+      </a>`;
+  }).join('');
 })();
 </script>
 <script src="js/main.js"></script>

@@ -527,12 +527,107 @@ h2 {
   margin: 0 0 12px;
 }
 
-.photos-grid {
+/* ---------------------------------------------------------------------------
+   ÍNDICE DE PROYECTOS (proyectos.html)
+   Grilla de portadas: 3 columnas, apaisadas, todas del mismo tamaño.
+   Una foto por proyecto; el resto aparece al pasar el cursor.
+--------------------------------------------------------------------------- */
+.work-section {
+  padding: 0 var(--edge);
+}
+
+.work-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--gap);
   align-items: start;
-  padding: 40px var(--edge) 0;
+  padding: 40px 0 0;
+}
+
+.work-card {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+/* Apaisada 1.727:1. Las piezas son verticales, así que se recortan:
+   la portada es un recorte, no la imagen entera. */
+.work-thumb {
+  position: relative;
+  aspect-ratio: 1.72727;
+  overflow: hidden;
+  background-color: var(--black);
+}
+
+.work-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.18s linear;
+}
+
+.work-frame.is-on {
+  opacity: 1;
+}
+
+/* El degradado sostiene el texto sobre cualquier foto */
+.work-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 64%, rgba(0, 0, 0, 0.6) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.work-meta {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--gap);
+  padding: 0 15px 15px;
+  color: var(--white);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.work-name {
+  font-size: 16px;
+  line-height: 1.15;
+}
+
+.work-tags {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.15;
+  text-align: right;
+}
+
+@media (hover: hover) {
+  .work-card:hover .work-veil,
+  .work-card:hover .work-meta {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Sin hover (touch) el texto va siempre visible */
+@media (hover: none) {
+  .work-veil,
+  .work-meta {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -587,7 +682,7 @@ h2 {
 
 @media screen and (max-width: 991px) {
   .project-image-grid { grid-template-columns: repeat(3, 1fr); }
-  .photos-grid { grid-template-columns: repeat(4, 1fr); }
+  .work-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media screen and (max-width: 767px) {
@@ -610,7 +705,7 @@ h2 {
   .text-row-body { grid-column: 1 / span 12; }
 
   .project-image-grid { grid-template-columns: repeat(2, 1fr); }
-  .photos-grid { grid-template-columns: repeat(3, 1fr); }
+  .work-grid { grid-template-columns: repeat(1, 1fr); }
 
   .layout-grid-item.is-wide { grid-column: span 2; }
   .layout-grid-item.is--active,
