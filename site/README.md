@@ -15,7 +15,7 @@ Después, abrir http://localhost:4321
 
 ```
 site/
-  index.html      home: hero + los 4 proyectos
+  index.html      home: solo el titular, una pantalla sin scroll
   about.html      "sobre mí"
   photos.html     "proceso": todas las piezas mezcladas en una grilla densa
   css/style.css   todo el diseño

@@ -293,6 +293,27 @@ h2 {
   padding: 0 var(--edge) var(--edge);
 }
 
+/* La home es una sola pantalla: el titular y el footer, sin scroll.
+   El hero se queda con todo el alto que no ocupa el footer, y fitHeadline()
+   mide sobre ese alto. */
+.home {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.home .hero {
+  flex: 1;
+  height: auto;
+  min-height: 0;
+}
+
+.home .footer {
+  margin-top: 0;
+}
+
 /* El tamaño se calcula por JS hasta llenar el ancho y el 40% del alto */
 .title-h1 {
   font-family: var(--font-display);
@@ -547,7 +568,6 @@ h2 {
 .work-card {
   position: relative;
   display: block;
-  cursor: pointer;
 }
 
 /* 4:5, igual que las piezas. No se recorta ninguna: la portada es la

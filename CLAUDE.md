@@ -26,7 +26,7 @@ mirar la página y revisar la consola del browser.
 
 ```
 site/
-  index.html      home: hero + los 4 proyectos en acordeón
+  index.html      home: solo el titular, una pantalla sin scroll
   about.html      "sobre mí" — no carga projects.js
   photos.html     "proyectos" — índice: 1 portada por proyecto; el render está INLINE
   css/style.css   732 líneas, todo el diseño

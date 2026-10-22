@@ -86,6 +86,7 @@
 // Índice de proyectos: una sola portada por proyecto, en el orden de PROJECTS.
 // El resto de las piezas viajan en data-frames y las consume initWorkHover()
 // en main.js, que las va pasando mientras el cursor está encima.
+// No son links: la home ya no muestra los proyectos, así que no hay adónde ir.
 (function () {
   const grid = document.getElementById('work-grid');
   if (!grid || typeof PROJECTS === 'undefined') return;
@@ -96,7 +97,7 @@
       (_, i) => `img/${p.slug}/${p.prefix}_${String(i + 1).padStart(3, '0')}.jpg`
     );
     return `
-      <a class="layout-grid-item work-card" href="index.html#${p.slug}" data-frames='${JSON.stringify(frames)}'>
+      <div class="layout-grid-item work-card" data-frames='${JSON.stringify(frames)}'>
         <div class="work-thumb">
           <img class="work-frame is-on" src="${frames[0]}" alt="${p.name}" loading="lazy">
           <div class="work-veil"></div>
@@ -105,7 +106,7 @@
           <div class="work-name">${p.name}</div>
           <div class="work-tags">${p.tags}</div>
         </div>
-      </a>`;
+      </div>`;
   }).join('');
 })();
 </script>
