@@ -16,4 +16,3 @@
 
 # Claude Code — estado local de sesión
 .claude/settings.local.json
-.claude/data-enablement/
