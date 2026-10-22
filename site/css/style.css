@@ -243,9 +243,11 @@ h2 {
   overflow: visible;
 }
 
-.nav-button:nth-child(1) { grid-column: 1 / span 6; }
-.nav-button:nth-child(2) { grid-column: 7 / span 3; }
-.nav-button:nth-child(3) { grid-column: 10 / span 3; }
+/* 4 secciones, una por cada franja que marcan las líneas de fondo */
+.nav-button:nth-child(1) { grid-column: 1 / span 3; }
+.nav-button:nth-child(2) { grid-column: 4 / span 3; }
+.nav-button:nth-child(3) { grid-column: 7 / span 3; }
+.nav-button:nth-child(4) { grid-column: 10 / span 3; }
 
 /* El cuadrado de 10px que parpadea como el cursor de una terminal */
 .button-square {
@@ -321,6 +323,14 @@ h2 {
   font-weight: 400;
   line-height: 1.02;
   letter-spacing: -0.02em;
+}
+
+.title-line {
+  display: block;
+}
+
+.title-line + .title-line {
+  margin-top: 0.5em;
 }
 
 /* El textito que persigue al cursor */
@@ -549,6 +559,45 @@ h2 {
 }
 
 /* ---------------------------------------------------------------------------
+   SERVICIOS
+   Misma fila etiqueta / texto que sobre mí, agrupada en dos bloques
+   (servicios y packs) con un rótulo mono arriba, como los de proyecto.
+--------------------------------------------------------------------------- */
+.services-section {
+  padding: 0 var(--edge);
+}
+
+.services-section:first-of-type {
+  padding-top: 25vh;
+}
+
+.services-section + .services-section {
+  margin-top: 120px;
+}
+
+.services-tag {
+  padding: 0 10px 20px;
+  color: var(--grey);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.services-section .text-row {
+  padding-bottom: 30px;
+}
+
+.pack-list {
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.pack-list li::before {
+  content: '•  ';
+  white-space: pre;
+}
+
+/* ---------------------------------------------------------------------------
    ÍNDICE DE PROYECTOS (proyectos.html)
    Una fila con los 4 proyectos, todas las portadas del mismo tamaño.
    Una foto por proyecto; el resto aparece al pasar el cursor.
@@ -709,9 +758,6 @@ h2 {
   .name-long { display: none; }
   .name-short { display: block; }
 
-  .nav-button:nth-child(1) { grid-column: 1 / span 4; }
-  .nav-button:nth-child(2) { grid-column: 6 / span 3; }
-  .nav-button:nth-child(3) { grid-column: 10 / span 3; }
 
   .project-info-container:nth-child(1) { grid-column: 1 / span 6; }
   .project-info-container:nth-child(2) { display: none; }

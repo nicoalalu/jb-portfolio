@@ -16,6 +16,7 @@ Después, abrir http://localhost:4321
 ```
 site/
   index.html      home: solo el titular, una pantalla sin scroll
+  servicios.html  "servicios" — los 6 servicios y los 2 packs, texto fijo
   about.html      "sobre mí"
   photos.html     "proceso": todas las piezas mezcladas en una grilla densa
   css/style.css   todo el diseño

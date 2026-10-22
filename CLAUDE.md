@@ -27,6 +27,7 @@ mirar la página y revisar la consola del browser.
 ```
 site/
   index.html      home: solo el titular, una pantalla sin scroll
+  servicios.html  "servicios" — los 6 servicios y los 2 packs, texto fijo
   about.html      "sobre mí" — no carga projects.js
   photos.html     "proyectos" — índice: 1 portada por proyecto; el render está INLINE
   css/style.css   732 líneas, todo el diseño
@@ -105,7 +106,7 @@ Cada cambio, por chico que sea, sigue estos pasos:
   que las va pasando en hover (`initWorkHover()`, nº 13) sí — si tocás uno,
   mirá el otro.
 - **El archivo se sigue llamando `photos.html`** aunque la página se llame
-  "proyectos". Renombrarlo implica tocar los tres `<nav>`.
+  "proyectos". Renombrarlo implica tocar los cuatro `<nav>`.
 - **Las portadas se recortan a 1.727:1** (`.work-thumb`). Es el único lugar
   del sitio donde una imagen se recorta: las piezas son 4:5 y de la portada
   se ve una franja horizontal del centro.
