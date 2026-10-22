@@ -1,0 +1,35 @@
+# publica site/ en github pages en cada push a main.
+# pages solo sabe servir desde la raíz o desde docs/, por eso hace falta
+# este workflow: le dice que la carpeta a publicar es site/.
+name: deploy a github pages
+
+on:
+  push:
+    branches: [main]
+  # botón "run workflow" en la pestaña actions, para republicar a mano
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# si hay dos pushes seguidos, el segundo espera al primero en vez de pisarlo
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4
