@@ -16,3 +16,6 @@
 
 # Claude Code — estado local de sesión
 .claude/settings.local.json
+
+# notas personales
+/todo.md
