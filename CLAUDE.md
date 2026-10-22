@@ -32,28 +32,42 @@ site/
   photos.html     "proyectos" — índice: 1 portada por proyecto, cada una linkea a su álbum; el render está INLINE
   proyecto.html   álbum de un proyecto: proyecto.html?p=<slug>, lo arma renderAlbum()
   css/style.css   732 líneas, todo el diseño
-  js/projects.js  los datos de los 4 proyectos
+  js/projects.js  los datos de los proyectos — GENERADO por scripts/sync_drive.py
   js/main.js      920 líneas, los 13 efectos
-  img/<slug>/     imágenes optimizadas, 1080×1350, ~150 kB c/u
+  img/<slug>/     imágenes optimizadas, 1080×1350; el nombre es el hash del original
+
+scripts/sync_drive.py   trae los proyectos de Drive, optimiza y regenera projects.js
+proyectos.json          registro de qué original generó cada foto publicada
+.github/workflows/pages.yml   sincroniza con Drive cada 30 min y publica
 
 alba/ lepla/ rose/ rue-daisy/   originales full-size, 186 MB — NO están en git
 ```
 
 ## Dónde tocar qué
 
-**Contenido de proyectos → `site/js/projects.js`.** Es el archivo que más se
-edita. Cada entrada del array `PROJECTS`:
+**Contenido de proyectos → la carpeta `web-proyectos` de Google Drive.**
+No se edita `projects.js` a mano: lo regenera `scripts/sync_drive.py` y lo
+que se cambie ahí se pisa. La carpeta es de quien sube las fotos; la cuenta
+de servicio `web-sync` la lee (secret `GDRIVE_SA_KEY`, variable
+`GDRIVE_FOLDER_ID`).
 
-| campo | qué es |
+| en Drive | en la web |
 |---|---|
-| `slug` | nombre de la carpeta en `site/img/` |
-| `prefix` | prefijo de los archivos (`lp_001.jpg` → `'lp'`) |
-| `count` | cuántas imágenes tiene el proyecto |
-| `wide` | índices base-1 que ocupan 2 columnas — es lo que le da ritmo a la grilla |
-| `meta` | pares `[etiqueta, valor]` que salen en el acordeón |
+| subcarpeta `01 lepla` | proyecto "lepla"; el número es el orden y no se muestra |
+| fotos, por nombre | orden del álbum; la primera es la portada |
+| foto `…-ancha.jpg` | ocupa 2 columnas — es lo que le da ritmo a la grilla |
+| `info.txt` con `tags: …` | los tags de la portada (opcional) |
 
-`renderProjects()` en `main.js` arma el HTML desde acá. Si cambiás `count`
-sin agregar el archivo, la imagen sale rota (no hay validación).
+Si Drive no devuelve ningún proyecto con fotos, el script frena en vez de
+vaciar la web. Para probar sin Drive, con la misma estructura en el disco:
+
+```bash
+python3 scripts/sync_drive.py --local ~/Desktop/web-proyectos-subir --dry-run
+```
+
+(las dependencias están en `scripts/requirements.txt`, pineadas). En la
+pestaña Actions, "run workflow" sincroniza sin esperar los 30 minutos, y con
+`dry_run` solo muestra qué cambiaría.
 
 **Diseño → `site/css/style.css`.** Variables en `:root`: paleta
 (`--white`/`--black`/`--grey`), grilla (`--cols: 12`, `--gap: 10px`,
@@ -94,10 +108,9 @@ Cada cambio, por chico que sea, sigue estos pasos:
 - Comentarios en español, explicando el *porqué* del efecto, no el cómo.
 - Sin dependencias instaladas: Lenis y GSAP (+ Flip, ScrollTrigger) entran por
   CDN de jsDelivr con versión pineada. Si agregás una lib, pineá la versión igual.
-- Las imágenes nuevas se optimizan con `sips`:
-  ```bash
-  sips -s format jpeg -s formatOptions 72 -Z 1350 original.jpg --out site/img/carpeta/xx_001.jpg
-  ```
+- Las imágenes no se optimizan a mano: `sync_drive.py` las lleva a 1350px
+  de lado mayor y calidad 72 (lo mismo que hacía `sips -Z 1350`), y corrige
+  la rotación de las fotos de celular.
 
 ## Trampas conocidas
 
@@ -111,8 +124,11 @@ Cada cambio, por chico que sea, sigue estos pasos:
 - **Las portadas se recortan a 1.727:1** (`.work-thumb`). Es el único lugar
   del sitio donde una imagen se recorta: las piezas son 4:5 y de la portada
   se ve una franja horizontal del centro.
-- **`about.html` no carga `projects.js`.** `renderProjects()` chequea
+- **`about.html` no carga `projects.js`.** `renderAlbum()` chequea
   `typeof PROJECTS === 'undefined'` y sale; no lo rompas.
+- **La versión `?v=` de los links a css y js la agrega el deploy**, sobre la
+  copia que se publica (no se commitea). Por eso en el repo los `.html`
+  linkean `css/style.css` a secas: no lo "arregles".
 - **El truco central del diseño es `mix-blend-mode: difference`** en la nav:
   texto blanco que se invierte sobre cualquier fondo. Si algo se ve "al revés"
   o desaparece, mirá ahí antes que nada.

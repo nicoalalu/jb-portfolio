@@ -1,32 +1,110 @@
-# publica site/ en github pages en cada push a main.
-# pages solo sabe servir desde la raíz o desde docs/, por eso hace falta
-# este workflow: le dice que la carpeta a publicar es site/.
+# trae los proyectos de la carpeta web-proyectos de drive y publica site/ en
+# github pages. sincronizar y publicar van en el mismo workflow a propósito:
+# un commit hecho por una action no dispara otros workflows, así que si
+# estuvieran separados, las fotos nuevas no se publicarían nunca.
+# pages solo sabe servir desde la raíz o desde docs/, por eso se le indica
+# que la carpeta a publicar es site/.
 name: deploy a github pages
 
 on:
   push:
     branches: [main]
-  # botón "run workflow" en la pestaña actions, para republicar a mano
+  # cada 30 minutos mira si hay fotos nuevas en drive. github pausa esto si
+  # el repo pasa 60 días sin actividad: se reactiva desde la pestaña actions.
+  schedule:
+    - cron: '*/30 * * * *'
+  # botón "run workflow" en la pestaña actions, para no esperar los 30 minutos
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'solo mostrar qué cambiaría, sin commitear ni publicar'
+        type: boolean
+        default: false
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# si hay dos pushes seguidos, el segundo espera al primero en vez de pisarlo
+# si se pisan dos corridas, la segunda espera a la primera en vez de pisarla
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  # sin environment, para poder probarlo en seco desde cualquier branch
+  sync:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      sha: ${{ steps.commit.outputs.sha }}
+      publicar: ${{ steps.commit.outputs.publicar }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: scripts/requirements.txt
+
+      - run: pip install -r scripts/requirements.txt
+
+      - name: traer proyectos de drive
+        env:
+          GDRIVE_SA_KEY: ${{ secrets.GDRIVE_SA_KEY }}
+          GDRIVE_FOLDER_ID: ${{ vars.GDRIVE_FOLDER_ID }}
+        run: python scripts/sync_drive.py ${{ inputs.dry_run && '--dry-run' || '' }}
+
+      # el cron corre cada 30 minutos: solo se republica si drive cambió, o
+      # si la corrida vino de un push o del botón
+      - name: commitear si hubo cambios
+        id: commit
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ] || [ "${{ github.ref }}" != "refs/heads/main" ]; then
+            echo "prueba en seco o fuera de main: no se commitea ni se publica"
+            echo "publicar=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git add -A site/img site/js/projects.js proyectos.json
+          if git diff --cached --quiet; then
+            echo "sin cambios en drive"
+            if [ "${{ github.event_name }}" = "schedule" ]; then
+              echo "publicar=false" >> "$GITHUB_OUTPUT"
+            else
+              echo "publicar=true" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            git config user.name 'web-sync'
+            git config user.email 'web-sync@users.noreply.github.com'
+            git commit -m 'contenido: sincroniza proyectos desde drive'
+            git pull --rebase origin main
+            git push origin HEAD:main
+            echo "publicar=true" >> "$GITHUB_OUTPUT"
+          fi
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs: sync
+    if: needs.sync.outputs.publicar == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # el commit que acaba de hacer sync, no el que disparó la corrida
       - uses: actions/checkout@v5
+        with:
+          ref: ${{ needs.sync.outputs.sha }}
+
+      # pages cachea 10 minutos: con la versión en la url, el browser baja el
+      # css y el js nuevos en vez de mezclar html nuevo con css viejo. se hace
+      # sobre la copia que se publica, no se commitea.
+      - name: versionar css y js
+        run: |
+          v=$(git rev-parse --short HEAD)
+          sed -i -E "s#(href=\"css/[^\"?]+\.css)\"#\1?v=$v\"#g; s#(src=\"js/[^\"?]+\.js)\"#\1?v=$v\"#g" site/*.html
+          grep -h 'css/\|js/' site/index.html
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

@@ -21,7 +21,7 @@ site/
   photos.html     "proceso": todas las piezas mezcladas en una grilla densa
   proyecto.html   álbum de un proyecto: proyecto.html?p=<slug>, lo arma renderAlbum()
   css/style.css   todo el diseño
-  js/projects.js  ← LOS DATOS. Es el archivo que más vas a tocar.
+  js/projects.js  los datos de los proyectos — generado desde Drive, no editar
   js/main.js      los 14 efectos
   img/            imágenes optimizadas (1600×2000, ~350 kB c/u)
 ```
@@ -31,19 +31,11 @@ intactas en la raíz del proyecto. `site/img/` son copias reducidas: 187 MB → 
 
 ## Para cambiar el contenido
 
-Casi todo vive en **`js/projects.js`**. Cada proyecto tiene nombre, rubro, año,
-descripción, datos de cliente y cuántas imágenes usa. El campo `wide` marca qué
-imágenes ocupan doble ancho, que es lo que le da ritmo a la grilla.
-
-Para agregar un proyecto nuevo:
-1. Crear `site/img/<nombre>/` con las imágenes numeradas (`xx_001.jpg`, `xx_002.jpg`…)
-2. Agregar el bloque correspondiente en `projects.js`
-
-Para reoptimizar imágenes nuevas:
-
-```bash
-sips -s format jpeg -s formatOptions 72 -Z 2000 original.jpg --out site/img/carpeta/xx_001.jpg
-```
+Los proyectos salen de la carpeta **`web-proyectos`** de Google Drive: cada
+subcarpeta (`01 lepla`, `02 rue daisy`…) es un proyecto, y sus fotos, en
+orden de nombre, el álbum. Las que terminan en `-ancha` ocupan doble ancho.
+Cada 30 minutos una GitHub Action trae los cambios, optimiza las fotos,
+regenera `js/projects.js` y publica. El detalle está en `CLAUDE.md`.
 
 ## ⚠️ Antes de publicar
 

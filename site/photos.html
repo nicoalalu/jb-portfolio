@@ -90,10 +90,7 @@
   if (!grid || typeof PROJECTS === 'undefined') return;
 
   grid.innerHTML = PROJECTS.map((p) => {
-    const frames = Array.from(
-      { length: p.count },
-      (_, i) => `img/${p.slug}/${p.prefix}_${String(i + 1).padStart(3, '0')}.jpg`
-    );
+    const frames = p.images.map((img) => `img/${p.slug}/${img.file}`);
     return `
       <a class="layout-grid-item work-card" href="proyecto.html?p=${p.slug}" data-frames='${JSON.stringify(frames)}'>
         <div class="work-thumb">

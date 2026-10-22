@@ -194,14 +194,12 @@ function initCursorTag() {
    5. RENDER DE LOS PROYECTOS
 --------------------------------------------------------------------------- */
 function projectImages(p) {
-  return Array.from({ length: p.count }, (_, i) => {
-    const n = String(i + 1).padStart(3, '0');
-    const file = `${p.prefix}_${n}.jpg`;
-    const wide = p.wide && p.wide.includes(i + 1) ? ' is-wide' : '';
+  return p.images.map((img) => {
+    const wide = img.wide ? ' is-wide' : '';
     return `
         <div class="layout-grid-item${wide}" data-layout-grid-item>
-          <img class="thumbnail portrait" src="img/${p.slug}/${file}" alt="${p.name}" loading="lazy">
-          <div class="filename">${file}</div>
+          <img class="thumbnail portrait" src="img/${p.slug}/${img.file}" alt="${p.name}" loading="lazy">
+          <div class="filename">${img.label}</div>
         </div>`;
   }).join('');
 }
@@ -231,70 +229,6 @@ function renderAlbum() {
         ${projectImages(p)}
       </div>
     </section>`;
-}
-
-function renderProjects() {
-  const root = document.querySelector('#projects');
-  if (!root || typeof PROJECTS === 'undefined') return;
-
-  root.innerHTML = PROJECTS.map((p, pi) => {
-    const images = projectImages(p);
-
-    const meta = p.meta
-      .map(([k, v]) => `<div class="meta-row">${k}</div>`)
-      .join('');
-    const metaValues = p.meta
-      .map(([k, v]) => `<div class="meta-row">${v}</div>`)
-      .join('');
-
-    return `
-      <section class="project-wrapper" id="${p.slug}" data-layout-group>
-        <div class="project-text-wrapper">
-          <div class="project-text-header">
-            ${pi === 0 ? '<div class="project-tag-wrapper"><div class="project-tag">proyectos</div></div>' : ''}
-            <div class="project-header-container">
-              <div class="project-header">
-                <div class="project-info-container text-inverse">
-                  <h2 class="project-info">${p.name}</h2>
-                </div>
-                <div class="project-info-container text-inverse">
-                  <div class="project-info">${p.tags}</div>
-                </div>
-                <div class="project-info-container text-inverse">
-                  <div class="project-info">${p.year}</div>
-                  <svg class="plus-icon" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 0V12M0 6H12" stroke="currentColor" stroke-width="1.2"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="project-content-wrapper">
-            <div class="acc-content-inner">
-              <div class="acc-content-col">
-                <p class="project-description">${p.description}</p>
-              </div>
-              <div class="acc-content-col">${meta}</div>
-              <div class="acc-content-col">${metaValues}</div>
-            </div>
-          </div>
-        </div>
-        <div class="project-image-wrapper">
-          <div class="project-image-grid" data-layout-grid data-gsap="stagger-container">
-            ${images}
-          </div>
-        </div>
-      </section>`;
-  }).join('');
-}
-
-/* El acordeón se arma recién en el DOMContentLoaded, así que cuando se llega
-   desde el índice de proyectos (index.html#slug) el ancla todavía no existe:
-   hay que ir a buscarla a mano una vez renderizado. */
-function scrollToHash() {
-  const target = location.hash && document.querySelector(location.hash);
-  if (!target) return;
-  requestAnimationFrame(() => lenis.scrollTo(target, { immediate: true }));
 }
 
 /* ---------------------------------------------------------------------------
@@ -933,9 +867,7 @@ document.addEventListener('DOMContentLoaded', () => {
   buildPixelGrid();
   window.addEventListener('resize', buildPixelGrid);
 
-  renderProjects();
   renderAlbum();
-  scrollToHash();
 
   fitHeadline('.title-h1');
   fitHeadline('.statement', 0.3, 0.3);

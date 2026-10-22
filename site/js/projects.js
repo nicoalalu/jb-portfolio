@@ -1,82 +1,193 @@
 /* ---------------------------------------------------------------------------
-   DATOS DE LOS PROYECTOS
+   DATOS DE LOS PROYECTOS — ARCHIVO GENERADO, NO EDITAR A MANO
    ---------------------------------------------------------------------------
-   ⚠️  TEXTOS PROVISORIOS — TODO: reemplazar con el contenido real.
-   Los nombres de proyecto y las imágenes son reales. Las descripciones,
-   clientes, años y créditos son inventados para poder evaluar el diseño.
-   No publicar el sitio sin reemplazarlos.
-
-   Cómo agregar/editar un proyecto:
-   - `slug`  : nombre de la carpeta dentro de site/img/
-   - `prefix`: prefijo de los archivos ya optimizados (lp_001.jpg → 'lp')
-   - `count` : cuántas imágenes tiene
-   - `wide`  : índices (base 1) que ocupan 2 columnas en vez de 1.
-               Sirve para dar ritmo a la grilla sin recortar ninguna imagen.
+   Lo escribe scripts/sync_drive.py a partir de la carpeta web-proyectos de
+   Drive. Para cambiar un proyecto, cambialo en Drive: lo que se edite acá se
+   pisa en la próxima sincronización.
 --------------------------------------------------------------------------- */
 
 const PROJECTS = [
   {
-    slug: 'lepla',
-    name: 'lepla',
-    tags: 'identidad, packaging',
-    year: '2024',
-    description:
-      'lepla nace del deseo de transformar la mesa en un espacio de arte. la identidad combina una tipografía de palo seco muy marcada con una firma manuscrita, sobre un rosa empolvado que atraviesa todas las piezas. el sistema busca el equilibrio entre lo artesanal y lo contemporáneo.',
-    meta: [
-      ['cliente', 'lepla'],
-      ['web', 'lepla.com.ar'],
-      ['rubro', 'vajilla y accesorios'],
-    ],
-    prefix: 'lp',
-    count: 8,
-    wide: [2, 5],
+    "slug": "lepla",
+    "name": "lepla",
+    "tags": "identidad, packaging",
+    "images": [
+      {
+        "file": "2772f08732e3.jpg",
+        "label": "lepla_001.jpg",
+        "wide": false
+      },
+      {
+        "file": "70fcd243e588.jpg",
+        "label": "lepla_002.jpg",
+        "wide": true
+      },
+      {
+        "file": "6f84df5c0207.jpg",
+        "label": "lepla_003.jpg",
+        "wide": false
+      },
+      {
+        "file": "2dda105f1b14.jpg",
+        "label": "lepla_004.jpg",
+        "wide": false
+      },
+      {
+        "file": "13ca18d009fe.jpg",
+        "label": "lepla_005.jpg",
+        "wide": true
+      },
+      {
+        "file": "95b851c71b09.jpg",
+        "label": "lepla_006.jpg",
+        "wide": false
+      },
+      {
+        "file": "24c4ed6078dc.jpg",
+        "label": "lepla_007.jpg",
+        "wide": false
+      },
+      {
+        "file": "18c530db8b5c.jpg",
+        "label": "lepla_008.jpg",
+        "wide": false
+      }
+    ]
   },
   {
-    slug: 'rue-daisy',
-    name: 'rue daisy',
-    tags: 'identidad, etiquetas',
-    year: '2024',
-    description:
-      'identidad para una marca de indumentaria de lana. el logotipo manuscrito se apoya en un azul grisáceo y un crudo de papel, con lunares como recurso gráfico recurrente. las etiquetas y los sellos completan un sistema de aire vintage sin caer en la nostalgia literal.',
-    meta: [
-      ['cliente', 'rue daisy'],
-      ['web', 'ruedaisy.com'],
-      ['rubro', 'indumentaria'],
-    ],
-    prefix: 'rd',
-    count: 8,
-    wide: [3, 6],
+    "slug": "rue-daisy",
+    "name": "rue daisy",
+    "tags": "identidad, etiquetas",
+    "images": [
+      {
+        "file": "a4f1ae70f141.jpg",
+        "label": "rue-daisy_001.jpg",
+        "wide": false
+      },
+      {
+        "file": "f6179bdd0862.jpg",
+        "label": "rue-daisy_002.jpg",
+        "wide": false
+      },
+      {
+        "file": "d3222a8b5055.jpg",
+        "label": "rue-daisy_003.jpg",
+        "wide": true
+      },
+      {
+        "file": "fae5ead08c41.jpg",
+        "label": "rue-daisy_004.jpg",
+        "wide": false
+      },
+      {
+        "file": "fa4df1b4f776.jpg",
+        "label": "rue-daisy_005.jpg",
+        "wide": false
+      },
+      {
+        "file": "a12de9288c3e.jpg",
+        "label": "rue-daisy_006.jpg",
+        "wide": true
+      },
+      {
+        "file": "f1f5d53b25d1.jpg",
+        "label": "rue-daisy_007.jpg",
+        "wide": false
+      },
+      {
+        "file": "973e8831a2b1.jpg",
+        "label": "rue-daisy_008.jpg",
+        "wide": false
+      }
+    ]
   },
   {
-    slug: 'alba',
-    name: 'alba',
-    tags: 'naming, identidad',
-    year: '2025',
-    description:
-      'construcción de un logotipo manuscrito de trazo continuo, pensado para funcionar tanto en gran escala como en aplicaciones mínimas. el amarillo saturado y el blanco puro sostienen toda la identidad, sin necesidad de recursos gráficos adicionales.',
-    meta: [
-      ['cliente', 'alba'],
-      ['web', 'alba.studio'],
-      ['rubro', 'estudio creativo'],
-    ],
-    prefix: 'al',
-    count: 7,
-    wide: [1, 4],
+    "slug": "alba",
+    "name": "alba",
+    "tags": "naming, identidad",
+    "images": [
+      {
+        "file": "a44a8aaf0727.jpg",
+        "label": "alba_001.jpg",
+        "wide": true
+      },
+      {
+        "file": "d1f93a9264d9.jpg",
+        "label": "alba_002.jpg",
+        "wide": false
+      },
+      {
+        "file": "ecd4a226e7bd.jpg",
+        "label": "alba_003.jpg",
+        "wide": false
+      },
+      {
+        "file": "d1f7e2e41950.jpg",
+        "label": "alba_004.jpg",
+        "wide": true
+      },
+      {
+        "file": "579530d6f5a6.jpg",
+        "label": "alba_005.jpg",
+        "wide": false
+      },
+      {
+        "file": "8b843b4b4c07.jpg",
+        "label": "alba_006.jpg",
+        "wide": false
+      },
+      {
+        "file": "e3d6022481c3.jpg",
+        "label": "alba_007.jpg",
+        "wide": false
+      }
+    ]
   },
   {
-    slug: 'rose',
-    name: 'rose',
-    tags: 'identidad, dirección de arte',
-    year: '2025',
-    description:
-      'identidad para una marca de cuidado facial con base en madrid. el sistema es estrictamente blanco y negro: una serif de contraste bajo, pictogramas sólidos de producto y fotografía de piel sin retoque. el color queda reservado enteramente a la imagen.',
-    meta: [
-      ['cliente', 'rose face & skin care'],
-      ['web', 'rose-skin.com'],
-      ['rubro', 'cosmética'],
-    ],
-    prefix: 'rs',
-    count: 8,
-    wide: [2, 7],
-  },
+    "slug": "rose",
+    "name": "rose",
+    "tags": "identidad, dirección de arte",
+    "images": [
+      {
+        "file": "ba24b872b110.jpg",
+        "label": "rose_001.jpg",
+        "wide": false
+      },
+      {
+        "file": "517f4007140f.jpg",
+        "label": "rose_002.jpg",
+        "wide": true
+      },
+      {
+        "file": "e7405dba3a77.jpg",
+        "label": "rose_003.jpg",
+        "wide": false
+      },
+      {
+        "file": "11d60c31bd61.jpg",
+        "label": "rose_004.jpg",
+        "wide": false
+      },
+      {
+        "file": "8fff88ae0e11.jpg",
+        "label": "rose_005.jpg",
+        "wide": false
+      },
+      {
+        "file": "76bb503281b3.jpg",
+        "label": "rose_006.jpg",
+        "wide": false
+      },
+      {
+        "file": "6efa30ef6773.jpg",
+        "label": "rose_007.jpg",
+        "wide": true
+      },
+      {
+        "file": "447195809a5b.jpg",
+        "label": "rose_008.jpg",
+        "wide": false
+      }
+    ]
+  }
 ];
