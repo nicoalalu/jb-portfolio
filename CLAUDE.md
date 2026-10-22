@@ -3,20 +3,21 @@
 Sitio de portfolio para un estudio de diseño gráfico. HTML/CSS/JS a mano, sin
 build step, sin framework, sin `package.json`. Todo lo que se sirve vive en `site/`.
 
-Es una **réplica de maximiliankaspar.com**: la estructura, la grilla y los
-efectos están reproducidos 1:1 a partir de la referencia. La página de
-proyectos (`photos.html`) es la excepción: su grilla de portadas está calcada
-de **ten10design.co/work**. Tenelo presente antes de sugerir publicarlo con
-dominio propio o hacer el repo público.
+Es una página web de una agencia de diseño creativo.
 
 ## Cómo correrlo
 
 ```bash
-python3 -m http.server 4321 --directory site
+python3 serve.py
 ```
 
 Después, http://localhost:4321. Hay un `.claude/launch.json` con la config
 `site` para levantarlo desde las herramientas de preview.
+
+Usá `serve.py` y no `python3 -m http.server`: el módulo estándar no manda
+`Cache-Control` ni `ETag`, así que Chrome cachea el HTML de forma heurística
+y te sirve la versión vieja sin consultar al servidor. El síntoma es editar
+un archivo, recargar, y seguir viendo lo de antes.
 
 No hay tests, ni linter, ni CI. La verificación es visual: levantar el server,
 mirar la página y revisar la consola del browser.

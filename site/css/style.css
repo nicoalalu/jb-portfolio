@@ -529,7 +529,7 @@ h2 {
 
 /* ---------------------------------------------------------------------------
    ÍNDICE DE PROYECTOS (proyectos.html)
-   Grilla de portadas: 3 columnas, apaisadas, todas del mismo tamaño.
+   Una fila con los 4 proyectos, todas las portadas del mismo tamaño.
    Una foto por proyecto; el resto aparece al pasar el cursor.
 --------------------------------------------------------------------------- */
 .work-section {
@@ -538,7 +538,7 @@ h2 {
 
 .work-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--gap);
   align-items: start;
   padding: 40px 0 0;
@@ -550,11 +550,11 @@ h2 {
   cursor: pointer;
 }
 
-/* Apaisada 1.727:1. Las piezas son verticales, así que se recortan:
-   la portada es un recorte, no la imagen entera. */
+/* 4:5, igual que las piezas. No se recorta ninguna: la portada es la
+   imagen entera, como en el resto del sitio. */
 .work-thumb {
   position: relative;
-  aspect-ratio: 1.72727;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   background-color: var(--black);
 }
@@ -705,7 +705,7 @@ h2 {
   .text-row-body { grid-column: 1 / span 12; }
 
   .project-image-grid { grid-template-columns: repeat(2, 1fr); }
-  .work-grid { grid-template-columns: repeat(1, 1fr); }
+  .work-grid { grid-template-columns: repeat(2, 1fr); }
 
   .layout-grid-item.is-wide { grid-column: span 2; }
   .layout-grid-item.is--active,
