@@ -189,5 +189,22 @@ const PROJECTS = [
         "wide": false
       }
     ]
+  },
+  {
+    "slug": "racimo",
+    "name": "racimo",
+    "tags": "",
+    "images": [
+      {
+        "file": "89781a9efe82.jpg",
+        "label": "racimo_001.jpg",
+        "wide": false
+      },
+      {
+        "file": "a9f6f05e78e3.jpg",
+        "label": "racimo_002.jpg",
+        "wide": false
+      }
+    ]
   }
 ];
