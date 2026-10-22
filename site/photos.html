@@ -52,12 +52,6 @@
   </div>
 </nav>
 
-<!-- TODO: texto provisorio. Esta página es el índice de proyectos:
-     una portada por proyecto, en el orden de PROJECTS. -->
-<section class="statement-section">
-  <div class="statement">cuatro identidades, cada una con su propia lógica. pasá el cursor por encima para recorrer las piezas de adentro.</div>
-</section>
-
 <section class="work-section">
   <div class="work-grid" data-gsap="stagger-container" id="work-grid"></div>
 </section>
@@ -90,7 +84,7 @@
 // Índice de proyectos: una sola portada por proyecto, en el orden de PROJECTS.
 // El resto de las piezas viajan en data-frames y las consume initWorkHover()
 // en main.js, que las va pasando mientras el cursor está encima.
-// No son links: la home ya no muestra los proyectos, así que no hay adónde ir.
+// Cada portada lleva al álbum del proyecto (proyecto.html?p=<slug>).
 (function () {
   const grid = document.getElementById('work-grid');
   if (!grid || typeof PROJECTS === 'undefined') return;
@@ -101,7 +95,7 @@
       (_, i) => `img/${p.slug}/${p.prefix}_${String(i + 1).padStart(3, '0')}.jpg`
     );
     return `
-      <div class="layout-grid-item work-card" data-frames='${JSON.stringify(frames)}'>
+      <a class="layout-grid-item work-card" href="proyecto.html?p=${p.slug}" data-frames='${JSON.stringify(frames)}'>
         <div class="work-thumb">
           <img class="work-frame is-on" src="${frames[0]}" alt="${p.name}" loading="lazy">
           <div class="work-veil"></div>
@@ -110,7 +104,7 @@
           <div class="work-name">${p.name}</div>
           <div class="work-tags">${p.tags}</div>
         </div>
-      </div>`;
+      </a>`;
   }).join('');
 })();
 </script>

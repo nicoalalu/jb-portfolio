@@ -19,6 +19,7 @@ site/
   servicios.html  "servicios" — los 6 servicios y los 2 packs, texto fijo
   about.html      "sobre mí"
   photos.html     "proceso": todas las piezas mezcladas en una grilla densa
+  proyecto.html   álbum de un proyecto: proyecto.html?p=<slug>, lo arma renderAlbum()
   css/style.css   todo el diseño
   js/projects.js  ← LOS DATOS. Es el archivo que más vas a tocar.
   js/main.js      los 14 efectos

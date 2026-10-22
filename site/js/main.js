@@ -193,21 +193,52 @@ function initCursorTag() {
 /* ---------------------------------------------------------------------------
    5. RENDER DE LOS PROYECTOS
 --------------------------------------------------------------------------- */
+function projectImages(p) {
+  return Array.from({ length: p.count }, (_, i) => {
+    const n = String(i + 1).padStart(3, '0');
+    const file = `${p.prefix}_${n}.jpg`;
+    const wide = p.wide && p.wide.includes(i + 1) ? ' is-wide' : '';
+    return `
+        <div class="layout-grid-item${wide}" data-layout-grid-item>
+          <img class="thumbnail portrait" src="img/${p.slug}/${file}" alt="${p.name}" loading="lazy">
+          <div class="filename">${file}</div>
+        </div>`;
+  }).join('');
+}
+
+/* El álbum de un proyecto (proyecto.html?p=<slug>): solo el nombre y las
+   fotos. La descripción y los datos de projects.js todavía son inventados,
+   por eso no se muestran. Un slug que no existe vuelve al índice. */
+function renderAlbum() {
+  const root = document.querySelector('#album');
+  if (!root || typeof PROJECTS === 'undefined') return;
+
+  const slug = new URLSearchParams(location.search).get('p');
+  const p = PROJECTS.find((x) => x.slug === slug);
+  if (!p) {
+    location.replace('photos.html');
+    return;
+  }
+
+  document.title = `${p.name} — estudio creativo`;
+  root.innerHTML = `
+    <section class="album" data-layout-group>
+      <div class="album-header">
+        <a href="photos.html" class="album-back">← proyectos</a>
+        <h1 class="album-title">${p.name}</h1>
+      </div>
+      <div class="project-image-grid" data-layout-grid data-gsap="stagger-container">
+        ${projectImages(p)}
+      </div>
+    </section>`;
+}
+
 function renderProjects() {
   const root = document.querySelector('#projects');
   if (!root || typeof PROJECTS === 'undefined') return;
 
   root.innerHTML = PROJECTS.map((p, pi) => {
-    const images = Array.from({ length: p.count }, (_, i) => {
-      const n = String(i + 1).padStart(3, '0');
-      const file = `${p.prefix}_${n}.jpg`;
-      const wide = p.wide && p.wide.includes(i + 1) ? ' is-wide' : '';
-      return `
-        <div class="layout-grid-item${wide}" data-layout-grid-item>
-          <img class="thumbnail portrait" src="img/${p.slug}/${file}" alt="${p.name}" loading="lazy">
-          <div class="filename">${file}</div>
-        </div>`;
-    }).join('');
+    const images = projectImages(p);
 
     const meta = p.meta
       .map(([k, v]) => `<div class="meta-row">${k}</div>`)
@@ -903,6 +934,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', buildPixelGrid);
 
   renderProjects();
+  renderAlbum();
   scrollToHash();
 
   fitHeadline('.title-h1');

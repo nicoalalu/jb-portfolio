@@ -603,7 +603,7 @@ h2 {
    Una foto por proyecto; el resto aparece al pasar el cursor.
 --------------------------------------------------------------------------- */
 .work-section {
-  padding: 0 var(--edge);
+  padding: 25vh var(--edge) 0;
 }
 
 .work-grid {
@@ -700,6 +700,45 @@ h2 {
 }
 
 /* ---------------------------------------------------------------------------
+   ÁLBUM DE UN PROYECTO (proyecto.html?p=<slug>)
+   El nombre arriba y todas las piezas en la misma grilla que tenían los
+   acordeones de la home.
+--------------------------------------------------------------------------- */
+.album {
+  padding: 25vh var(--edge) 0;
+}
+
+.album-header {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: var(--gap);
+  align-items: end;
+  padding: 0 var(--edge) 20px;
+}
+
+/* "volver" va en la última franja, alineado con "sobre mí" de la nav */
+.album-back {
+  grid-column: 10 / span 3;
+  order: 2;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.album-back:hover {
+  color: var(--grey);
+}
+
+.album-title {
+  grid-column: 1 / span 9;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 45px;
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+/* ---------------------------------------------------------------------------
    FOOTER
 --------------------------------------------------------------------------- */
 .footer {
@@ -756,6 +795,9 @@ h2 {
 
 @media screen and (max-width: 767px) {
   .name-long { display: none; }
+
+  .album-title { grid-column: 1 / span 12; }
+  .album-back { grid-column: 1 / span 12; order: 0; padding-bottom: 10px; }
   .name-short { display: block; }
 
 
