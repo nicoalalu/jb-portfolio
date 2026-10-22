@@ -63,6 +63,27 @@ bloque que explican qué hace cada uno y por qué. Todo se dispara desde el
 `DOMContentLoaded` del final. Si agregás un efecto, seguí el patrón:
 función `initAlgo()` con su comentario numerado, y la llamada al arranque.
 
+## Flujo de trabajo
+
+Cada cambio, por chico que sea, sigue estos pasos:
+
+1. **Branch nueva desde `main` actualizado.** Nunca se trabaja directo sobre
+   `main` ni sobre una branch vieja:
+   ```bash
+   git fetch origin
+   git switch -c <nombre-corto> origin/main
+   ```
+2. **Verificar en local antes de commitear.** Levantar `python3 serve.py`,
+   abrir http://localhost:4321 y confirmar que la página carga bien, que la
+   consola del browser no tiene errores, y que el cambio se ve como se pidió
+   (en desktop y en mobile). Si algo no se pudo verificar, decirlo, no
+   commitear "a ciegas".
+3. **Commits que digan qué tipo de cambio son**, con un prefijo y la
+   descripción en castellano simple:
+   - `fix:` arregla algo que estaba roto → `fix: la portada de rose salía cortada`
+   - `feature:` agrega algo nuevo → `feature: la home muestra solo el titular`
+   - `refactor:` reordena código sin cambiar lo que se ve → `refactor: saca renderProjects de la home`
+
 ## Convenciones
 
 - **Todo en español y en minúscula.** Los textos de la UI, los comentarios del
