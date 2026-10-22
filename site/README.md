@@ -34,8 +34,10 @@ intactas en la raíz del proyecto. `site/img/` son copias reducidas: 187 MB → 
 Los proyectos salen de la carpeta **`web-proyectos`** de Google Drive: cada
 subcarpeta (`01 lepla`, `02 rue daisy`…) es un proyecto, y sus fotos, en
 orden de nombre, el álbum. Las que terminan en `-ancha` ocupan doble ancho.
-Cada 30 minutos una GitHub Action trae los cambios, optimiza las fotos,
-regenera `js/projects.js` y publica. El detalle está en `CLAUDE.md`.
+Para que entren a la web, se corre a mano el workflow (pestaña Actions →
+"run workflow"), o entran solos con el próximo merge a `main`: la GitHub
+Action trae los cambios, optimiza las fotos, regenera `js/projects.js` y
+publica. El detalle está en `CLAUDE.md`.
 
 ## ⚠️ Antes de publicar
 

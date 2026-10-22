@@ -9,11 +9,8 @@ name: deploy a github pages
 on:
   push:
     branches: [main]
-  # cada 30 minutos mira si hay fotos nuevas en drive. github pausa esto si
-  # el repo pasa 60 días sin actividad: se reactiva desde la pestaña actions.
-  schedule:
-    - cron: '*/30 * * * *'
-  # botón "run workflow" en la pestaña actions, para no esperar los 30 minutos
+  # no corre solo cada tanto: las fotos nuevas de drive entran cuando se
+  # aprieta "run workflow" en la pestaña actions, o con el próximo merge a main
   workflow_dispatch:
     inputs:
       dry_run:
@@ -52,8 +49,6 @@ jobs:
           GDRIVE_FOLDER_ID: ${{ vars.GDRIVE_FOLDER_ID }}
         run: python scripts/sync_drive.py ${{ inputs.dry_run && '--dry-run' || '' }}
 
-      # el cron corre cada 30 minutos: solo se republica si drive cambió, o
-      # si la corrida vino de un push o del botón
       - name: commitear si hubo cambios
         id: commit
         run: |
@@ -65,11 +60,7 @@ jobs:
           git add -A site/img site/js/projects.js proyectos.json
           if git diff --cached --quiet; then
             echo "sin cambios en drive"
-            if [ "${{ github.event_name }}" = "schedule" ]; then
-              echo "publicar=false" >> "$GITHUB_OUTPUT"
-            else
-              echo "publicar=true" >> "$GITHUB_OUTPUT"
-            fi
+            echo "publicar=true" >> "$GITHUB_OUTPUT"
           else
             git config user.name 'web-sync'
             git config user.email 'web-sync@users.noreply.github.com'

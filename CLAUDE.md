@@ -38,7 +38,7 @@ site/
 
 scripts/sync_drive.py   trae los proyectos de Drive, optimiza y regenera projects.js
 proyectos.json          registro de qué original generó cada foto publicada
-.github/workflows/pages.yml   sincroniza con Drive cada 30 min y publica
+.github/workflows/pages.yml   sincroniza con Drive y publica (a mano o con cada merge a main)
 
 alba/ lepla/ rose/ rue-daisy/   originales full-size, 186 MB — NO están en git
 ```
@@ -66,8 +66,9 @@ python3 scripts/sync_drive.py --local ~/Desktop/web-proyectos-subir --dry-run
 ```
 
 (las dependencias están en `scripts/requirements.txt`, pineadas). En la
-pestaña Actions, "run workflow" sincroniza sin esperar los 30 minutos, y con
-`dry_run` solo muestra qué cambiaría.
+pestaña Actions, "run workflow" sincroniza y publica, y con `dry_run` solo
+muestra qué cambiaría. No hay sincronización programada: lo que se suba a
+Drive entra con ese botón o con el próximo merge a `main`.
 
 **Diseño → `site/css/style.css`.** Variables en `:root`: paleta
 (`--white`/`--black`/`--grey`), grilla (`--cols: 12`, `--gap: 10px`,
