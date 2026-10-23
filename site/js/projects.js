@@ -191,6 +191,53 @@ const PROJECTS = [
     ]
   },
   {
+    "slug": "core-pilates",
+    "name": "core pilates",
+    "tags": "",
+    "images": [
+      {
+        "file": "144a794107ec.jpg",
+        "label": "core-pilates_001.jpg",
+        "wide": false
+      },
+      {
+        "file": "e7cb2e38af80.jpg",
+        "label": "core-pilates_002.jpg",
+        "wide": false
+      },
+      {
+        "file": "21dec4fe4c06.jpg",
+        "label": "core-pilates_003.jpg",
+        "wide": false
+      },
+      {
+        "file": "d2ee47301d2f.jpg",
+        "label": "core-pilates_004.jpg",
+        "wide": false
+      },
+      {
+        "file": "f132408c8dcb.jpg",
+        "label": "core-pilates_005.jpg",
+        "wide": false
+      },
+      {
+        "file": "0044abb9b274.jpg",
+        "label": "core-pilates_006.jpg",
+        "wide": false
+      },
+      {
+        "file": "bc99569b7733.jpg",
+        "label": "core-pilates_007.jpg",
+        "wide": false
+      },
+      {
+        "file": "6153ba3d3b57.jpg",
+        "label": "core-pilates_008.jpg",
+        "wide": false
+      }
+    ]
+  },
+  {
     "slug": "racimo",
     "name": "racimo",
     "tags": "",
