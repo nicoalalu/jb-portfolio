@@ -107,38 +107,33 @@ const PROJECTS = [
     "tags": "naming, identidad",
     "images": [
       {
-        "file": "579530d6f5a6.jpg",
+        "file": "73880dcbabe1.jpg",
         "label": "alba_001.jpg",
         "wide": false
       },
       {
-        "file": "a44a8aaf0727.jpg",
+        "file": "579530d6f5a6.jpg",
         "label": "alba_002.jpg",
-        "wide": true
-      },
-      {
-        "file": "d1f93a9264d9.jpg",
-        "label": "alba_003.jpg",
         "wide": false
       },
       {
         "file": "ecd4a226e7bd.jpg",
-        "label": "alba_004.jpg",
+        "label": "alba_003.jpg",
         "wide": false
       },
       {
         "file": "d1f7e2e41950.jpg",
-        "label": "alba_005.jpg",
+        "label": "alba_004.jpg",
         "wide": true
+      },
+      {
+        "file": "d1f93a9264d9.jpg",
+        "label": "alba_005.jpg",
+        "wide": false
       },
       {
         "file": "8b843b4b4c07.jpg",
         "label": "alba_006.jpg",
-        "wide": false
-      },
-      {
-        "file": "e3d6022481c3.jpg",
-        "label": "alba_007.jpg",
         "wide": false
       }
     ]
@@ -186,6 +181,11 @@ const PROJECTS = [
       {
         "file": "447195809a5b.jpg",
         "label": "rose_008.jpg",
+        "wide": false
+      },
+      {
+        "file": "ada66e0d9370.jpg",
+        "label": "rose_009.jpg",
         "wide": false
       }
     ]
@@ -238,17 +238,59 @@ const PROJECTS = [
     ]
   },
   {
+    "slug": "la-rando",
+    "name": "la rando",
+    "tags": "",
+    "images": [
+      {
+        "file": "44b59005339a.jpg",
+        "label": "la-rando_001.jpg",
+        "wide": false
+      },
+      {
+        "file": "8eaa43236f39.jpg",
+        "label": "la-rando_002.jpg",
+        "wide": false
+      },
+      {
+        "file": "2801f308053d.jpg",
+        "label": "la-rando_003.jpg",
+        "wide": false
+      },
+      {
+        "file": "e68263dde527.jpg",
+        "label": "la-rando_004.jpg",
+        "wide": false
+      },
+      {
+        "file": "ebff69f703dd.jpg",
+        "label": "la-rando_005.jpg",
+        "wide": false
+      },
+      {
+        "file": "7bdec2bb4a81.jpg",
+        "label": "la-rando_006.jpg",
+        "wide": false
+      },
+      {
+        "file": "0bfbda5072a5.jpg",
+        "label": "la-rando_007.jpg",
+        "wide": false
+      }
+    ]
+  },
+  {
     "slug": "racimo",
     "name": "racimo",
     "tags": "",
     "images": [
       {
-        "file": "89781a9efe82.jpg",
+        "file": "a9f6f05e78e3.jpg",
         "label": "racimo_001.jpg",
         "wide": false
       },
       {
-        "file": "a9f6f05e78e3.jpg",
+        "file": "89781a9efe82.jpg",
         "label": "racimo_002.jpg",
         "wide": false
       }
