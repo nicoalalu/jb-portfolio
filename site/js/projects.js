@@ -107,29 +107,29 @@ const PROJECTS = [
     "tags": "naming, identidad",
     "images": [
       {
-        "file": "a44a8aaf0727.jpg",
+        "file": "579530d6f5a6.jpg",
         "label": "alba_001.jpg",
+        "wide": false
+      },
+      {
+        "file": "a44a8aaf0727.jpg",
+        "label": "alba_002.jpg",
         "wide": true
       },
       {
         "file": "d1f93a9264d9.jpg",
-        "label": "alba_002.jpg",
-        "wide": false
-      },
-      {
-        "file": "ecd4a226e7bd.jpg",
         "label": "alba_003.jpg",
         "wide": false
       },
       {
-        "file": "d1f7e2e41950.jpg",
+        "file": "ecd4a226e7bd.jpg",
         "label": "alba_004.jpg",
-        "wide": true
+        "wide": false
       },
       {
-        "file": "579530d6f5a6.jpg",
+        "file": "d1f7e2e41950.jpg",
         "label": "alba_005.jpg",
-        "wide": false
+        "wide": true
       },
       {
         "file": "8b843b4b4c07.jpg",
@@ -196,22 +196,22 @@ const PROJECTS = [
     "tags": "",
     "images": [
       {
-        "file": "144a794107ec.jpg",
+        "file": "d2ee47301d2f.jpg",
         "label": "core-pilates_001.jpg",
         "wide": false
       },
       {
-        "file": "e7cb2e38af80.jpg",
+        "file": "21dec4fe4c06.jpg",
         "label": "core-pilates_002.jpg",
         "wide": false
       },
       {
-        "file": "21dec4fe4c06.jpg",
+        "file": "e7cb2e38af80.jpg",
         "label": "core-pilates_003.jpg",
         "wide": false
       },
       {
-        "file": "d2ee47301d2f.jpg",
+        "file": "144a794107ec.jpg",
         "label": "core-pilates_004.jpg",
         "wide": false
       },
