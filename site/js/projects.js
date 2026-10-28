@@ -13,19 +13,19 @@ const PROJECTS = [
     "tags": "identidad, packaging",
     "images": [
       {
-        "file": "2772f08732e3.jpg",
+        "file": "6f84df5c0207.jpg",
         "label": "lepla_001.jpg",
         "wide": false
       },
       {
-        "file": "70fcd243e588.jpg",
+        "file": "2772f08732e3.jpg",
         "label": "lepla_002.jpg",
-        "wide": true
+        "wide": false
       },
       {
-        "file": "6f84df5c0207.jpg",
+        "file": "70fcd243e588.jpg",
         "label": "lepla_003.jpg",
-        "wide": false
+        "wide": true
       },
       {
         "file": "2dda105f1b14.jpg",
@@ -60,7 +60,7 @@ const PROJECTS = [
     "tags": "identidad, etiquetas",
     "images": [
       {
-        "file": "a4f1ae70f141.jpg",
+        "file": "973e8831a2b1.jpg",
         "label": "rue-daisy_001.jpg",
         "wide": false
       },
@@ -95,7 +95,7 @@ const PROJECTS = [
         "wide": false
       },
       {
-        "file": "973e8831a2b1.jpg",
+        "file": "a4f1ae70f141.jpg",
         "label": "rue-daisy_008.jpg",
         "wide": false
       }
@@ -196,43 +196,63 @@ const PROJECTS = [
     "tags": "",
     "images": [
       {
-        "file": "d2ee47301d2f.jpg",
+        "file": "cb92434c49ef.jpg",
         "label": "core-pilates_001.jpg",
         "wide": false
       },
       {
-        "file": "21dec4fe4c06.jpg",
+        "file": "0dd5306a50d9.jpg",
         "label": "core-pilates_002.jpg",
         "wide": false
       },
       {
-        "file": "e7cb2e38af80.jpg",
+        "file": "6ed12b9274cc.jpg",
         "label": "core-pilates_003.jpg",
         "wide": false
       },
       {
-        "file": "144a794107ec.jpg",
+        "file": "1c4e0227a7e2.jpg",
         "label": "core-pilates_004.jpg",
         "wide": false
       },
       {
-        "file": "f132408c8dcb.jpg",
+        "file": "861dfd5f6136.jpg",
         "label": "core-pilates_005.jpg",
         "wide": false
       },
       {
-        "file": "0044abb9b274.jpg",
+        "file": "14deaf06296f.jpg",
         "label": "core-pilates_006.jpg",
         "wide": false
       },
       {
-        "file": "bc99569b7733.jpg",
+        "file": "bac570fda1bc.jpg",
         "label": "core-pilates_007.jpg",
         "wide": false
       },
       {
-        "file": "6153ba3d3b57.jpg",
+        "file": "8b404eb53c87.jpg",
         "label": "core-pilates_008.jpg",
+        "wide": false
+      },
+      {
+        "file": "cee8ee1ca419.jpg",
+        "label": "core-pilates_009.jpg",
+        "wide": false
+      },
+      {
+        "file": "206ad654091e.jpg",
+        "label": "core-pilates_010.jpg",
+        "wide": false
+      },
+      {
+        "file": "548074d783d8.jpg",
+        "label": "core-pilates_011.jpg",
+        "wide": false
+      },
+      {
+        "file": "70f2651208be.jpg",
+        "label": "core-pilates_012.jpg",
         "wide": false
       }
     ]
