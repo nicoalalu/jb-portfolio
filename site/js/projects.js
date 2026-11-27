@@ -310,8 +310,38 @@ const PROJECTS = [
         "wide": false
       },
       {
-        "file": "89781a9efe82.jpg",
+        "file": "70ba3e865a64.jpg",
         "label": "racimo_002.jpg",
+        "wide": false
+      },
+      {
+        "file": "d7acdf489606.jpg",
+        "label": "racimo_003.jpg",
+        "wide": false
+      },
+      {
+        "file": "2cf702a905e7.jpg",
+        "label": "racimo_004.jpg",
+        "wide": false
+      },
+      {
+        "file": "d6fdf996cb74.jpg",
+        "label": "racimo_005.jpg",
+        "wide": false
+      },
+      {
+        "file": "c1c74382ccc0.jpg",
+        "label": "racimo_006.jpg",
+        "wide": false
+      },
+      {
+        "file": "616276487b74.jpg",
+        "label": "racimo_007.jpg",
+        "wide": false
+      },
+      {
+        "file": "75b88672fa13.jpg",
+        "label": "racimo_008.jpg",
         "wide": false
       }
     ]
