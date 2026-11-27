@@ -218,12 +218,17 @@ function renderAlbum() {
     return;
   }
 
+  // descripciones.js es opcional: sin él (o sin entrada) sale solo el nombre
+  const d = (typeof DESCRIPCIONES !== 'undefined' && DESCRIPCIONES[p.slug]) || {};
+
   document.title = `${p.name} — estudio creativo`;
   root.innerHTML = `
     <section class="album" data-layout-group>
       <div class="album-header">
         <a href="photos.html" class="album-back">← proyectos</a>
-        <h1 class="album-title">${p.name}</h1>
+        <h1 class="album-title">${p.name.toLowerCase()}</h1>
+        ${d.subtitulo ? `<p class="album-subtitle">${d.subtitulo}</p>` : ''}
+        ${d.texto ? `<p class="album-text">${d.texto}</p>` : ''}
       </div>
       <div class="project-image-grid" data-layout-grid data-gsap="stagger-container">
         ${projectImages(p)}

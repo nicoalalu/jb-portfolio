@@ -675,12 +675,6 @@ h2 {
   line-height: 1.15;
 }
 
-.work-tags {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1.15;
-  text-align: right;
-}
 
 @media (hover: hover) {
   .work-card:hover .work-veil,
@@ -736,6 +730,25 @@ h2 {
   font-weight: 400;
   line-height: 1.02;
   letter-spacing: -0.02em;
+}
+
+/* subtítulo y texto van debajo del título, en la misma columna */
+.album-subtitle,
+.album-text {
+  grid-column: 1 / span 6;
+  order: 3;
+  margin: 0;
+}
+
+.album-subtitle {
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.album-text {
+  font-size: 16px;
+  line-height: 1.35;
 }
 
 /* ---------------------------------------------------------------------------
@@ -796,7 +809,9 @@ h2 {
 @media screen and (max-width: 767px) {
   .name-long { display: none; }
 
-  .album-title { grid-column: 1 / span 12; }
+  .album-title,
+  .album-subtitle,
+  .album-text { grid-column: 1 / span 12; }
   .album-back { grid-column: 1 / span 12; order: 0; padding-bottom: 10px; }
   .name-short { display: block; }
 
